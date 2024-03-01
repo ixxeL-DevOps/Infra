@@ -1,0 +1,7 @@
+---
+version: '3'
+
+tasks:
+  validate:
+    cmds:
+      - packer validate -var-file='packer/credentials.pkr.hcl' packer/ubuntu/ubuntu-test.pkr.hcl
