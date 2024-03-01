@@ -1,0 +1,60 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: k0s-fredcorp
+spec:
+  hosts:
+  - role: controller+worker
+    installFlags:
+    - --debug
+    ssh:
+      address: 192.168.1.110
+      user: fred
+      port: 22
+      keyPath: ~/.ssh/id_rsa
+    uploadBinary: false
+    hostname: k0s-fredcorp
+    dataDir: /var/lib/k0s
+  k0s:
+    version: v1.28.4+k0s.0
+    dynamicConfig: false
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: ClusterConfig
+      metadata:
+        name: k0s-fredcorp
+      spec:
+        api:
+          address: 192.168.1.110
+          port: 6443
+          k0sApiPort: 9443
+          sans:
+          - 192.168.1.110
+          externalAddress: k0s-cluster.fredcorp.com
+        installConfig:
+          users:
+            etcdUser: etcd
+            kineUser: kube-apiserver
+            konnectivityUser: konnectivity-server
+            kubeAPIserverUser: kube-apiserver
+            kubeSchedulerUser: kube-scheduler
+        konnectivity:
+          adminPort: 8133
+          agentPort: 8132
+        network:
+          provider: calico
+          clusterDomain: cluster.local
+          calico:
+            mode: vxlan
+            overlay: Always
+            vxlanPort: 4789
+            vxlanVNI: 4096
+            mtu: 0
+            wireguard: false
+        controllerManager: {}
+        scheduler: {}
+        storage:
+          type: etcd
+        extensions:
+          storage:
+            type: openebs_local_storage
