@@ -4,4 +4,8 @@ version: '3'
 tasks:
   validate:
     cmds:
-      - packer validate -var-file='packer/credentials.pkr.hcl' packer/ubuntu/ubuntu-test.pkr.hcl
+      - packer validate -var-file='packer/ubuntu/22-04-lts/variables.pkrvars.hcl' packer/ubuntu/22-04-lts/
+
+  build:
+    cmds:
+      - packer build -warn-on-undeclared-var -var-file='packer/ubuntu/22-04-lts/variables.pkrvars.hcl' packer/ubuntu/22-04-lts/
