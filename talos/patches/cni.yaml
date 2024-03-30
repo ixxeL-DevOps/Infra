@@ -4,4 +4,4 @@ cluster:
     cni:
       name: custom
       urls:
-      - 
+      - https://raw.githubusercontent.com/ixxeL-DevOps/Infra/main/talos/cilium.yaml
