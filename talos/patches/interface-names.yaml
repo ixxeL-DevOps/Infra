@@ -1,0 +1,6 @@
+# Forcing ethx names for interfaces
+---
+machine:
+  install:
+    extraKernelArgs:
+      - net.ifnames=0

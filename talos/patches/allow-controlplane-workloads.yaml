@@ -1,0 +1,4 @@
+# Make all nodes control planes and worker nodes at the same time
+---
+cluster:
+  allowSchedulingOnControlPlanes: true

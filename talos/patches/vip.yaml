@@ -1,0 +1,8 @@
+# Configuring IP address for cluster VIP
+---
+machine:
+  network:
+    interfaces:
+      - interface: eth0
+        vip:
+          ip: 192.168.1.130

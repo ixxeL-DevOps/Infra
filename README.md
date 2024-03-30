@@ -18,3 +18,15 @@ Fetch the kubeconfig for your cluster
 ```bash
 k0sctl kubeconfig --disable-telemetry
 ```
+
+## Talos
+
+Generate secrets:
+```bash
+talosctl gen secrets
+```
+
+Generate config:
+```bash
+talosctl gen config talos-k8s-fredcorp https://192.168.1.130:6443
+```
