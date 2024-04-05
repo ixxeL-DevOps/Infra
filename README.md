@@ -147,6 +147,11 @@ If you need to patch a machine after install :
 talosctl -n 192.168.1.133 patch mc -p @patches/example.yaml
 ```
 
+or inline:
+```bash
+talosctl -n 192.168.1.131 patch mc -p '[{"op": "remove", "path": "/cluster/network/cni/urls"}]' -p '[{"op": "replace", "path": "/cluster/network/cni/name", "value": "none"}]'
+```
+
 ### ArgoCD and ESO
 
 First install ArgoCD with the init `values.yaml`:

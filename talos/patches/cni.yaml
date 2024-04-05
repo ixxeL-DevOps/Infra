@@ -1,7 +1,14 @@
 ---
 cluster:
+  proxy:
+    disabled: true
   network:
     cni:
       name: custom
       urls:
       - https://raw.githubusercontent.com/ixxeL-DevOps/Infra/main/talos/cilium.yaml
+
+# Or for post helm install :
+  # network:
+  #   cni:
+  #     name: none
