@@ -152,6 +152,40 @@ or inline:
 talosctl -n 192.168.1.131 patch mc -p '[{"op": "remove", "path": "/cluster/network/cni/urls"}]' -p '[{"op": "replace", "path": "/cluster/network/cni/name", "value": "none"}]'
 ```
 
+### Upgrade Talos
+Upgrade first node to new Talos OS version:
+```bash
+talosctl upgrade -i ghcr.io/siderolabs/installer:v1.8.1 -n 192.168.1.131
+```
+
+Cordon should start :
+
+```console
+NAME           STATUS                     ROLES           AGE    VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION   CONTAINER-RUNTIME
+talos-k8s-01   Ready,SchedulingDisabled   control-plane   200d   v1.29.3   192.168.1.131   <none>        Talos (v1.6.7)   6.1.82-talos     containerd://1.7.13
+```
+
+And once ready should display:
+```console
+NAME           STATUS   ROLES           AGE    VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE         KERNEL-VERSION   CONTAINER-RUNTIME
+talos-k8s-01   Ready    control-plane   200d   v1.29.3   192.168.1.131   <none>        Talos (v1.8.1)   6.6.54-talos     containerd://2.0.0-rc.5
+```
+
+Keep updating other nodes.
+
+Now you can upgrade Kubernetes version. First check out the correct path with `--dry-run` option:
+
+```console
+~#@❯ talosctl upgrade-k8s --to=1.31.1 -n 192.168.1.131 --dry-run
+automatically detected the lowest Kubernetes version 1.29.3
+unsupported upgrade path 1.29->1.31 (from "1.29.3" to "1.31.1")
+```
+Then adjust and upgrade finally:
+
+```bash
+talosctl upgrade-k8s --to=1.30.0 -n 192.168.1.131
+```
+
 ### ArgoCD and ESO
 
 First install ArgoCD with the init `values.yaml`:
