@@ -1,22 +1,38 @@
 # Infra
 
 ## k0s 
+### Prepare SSH
+
+Add user to sudo group:
+```
+sudo usermod -aG sudo $USER
+```
+Edit sudoers file:
+```
+sudo visudo
+```
+
+Ensure these lines exists:
+```
+fred ALL=(ALL) NOPASSWD: ALL
+%sudo   ALL=(ALL:ALL) NOPASSWD:ALL
+```
 
 ### Bootstrap a cluster
 
 Initialize and customize your cluster plain YAML definition:
 ```bash
-k0sctl init --k0s > k0sctl.yaml
+k0sctl init --k0s > fullstack.yaml
 ```
 
 Apply your cahnges:
 ```bash
-k0sctl apply --config k0sctl.yaml --disable-telemetry --debug
+k0sctl apply --config fullstack.yaml --disable-telemetry --debug
 ```
 
 Fetch the kubeconfig for your cluster
 ```bash
-k0sctl kubeconfig --disable-telemetry
+k0sctl kubeconfig --config fullstack.yaml
 ```
 
 ## Talos
